@@ -7,6 +7,6 @@ public class Flight
     public Airport Departure { get; set; }
     public Airport Arrival { get; set; }
     public TimeSpan DepartureTime { get; set; }
-    public TimeSpan ArrivalTime { get;}
+    public TimeSpan ArrivalTime { get; set; }
     public Plane Plane { get; set; }
 }

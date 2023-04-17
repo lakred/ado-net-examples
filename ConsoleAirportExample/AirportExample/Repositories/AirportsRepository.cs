@@ -6,11 +6,11 @@ namespace AirportExample.Repositories;
 
 public interface IAirportRepository
 {
-    Airport? GetById (string airportId);
-    Airport? GetByNation (string nation);
-    Airport? Insert (Airport airport);
-    Airport? Update (Airport airport);
-    bool Delete (string airportId);
+    Airport? GetById(string airportId);
+    Airport? GetByNation(string nation);
+    Airport? Insert(Airport airport);
+    Airport? Update(Airport airport);
+    bool Delete(string airportId);
 }
 
 public class AirportsRepository : IAirportRepository
@@ -59,15 +59,15 @@ public class AirportsRepository : IAirportRepository
         var command = @"
             INSERT INTO [Aeroporto] ([Citta],[Nazione],[NumPiste])
             VALUES ( @Citta, @Nazione,@NumPiste )";
-        var p = new Dictionary<string, object >()
+        var p = new Dictionary<string, object>()
         {
             { "@Citta", airport.City },
             { "@Nazione", airport.Country},
             { "@NumPiste", airport.AirstripsNumber?? 0}
         };
         var rowsAffected = Execute(command, p);
-        return rowsAffected > 0 
-            ? GetById(airport.City) 
+        return rowsAffected > 0
+            ? GetById(airport.City)
             : null;
     }
 
@@ -79,22 +79,22 @@ public class AirportsRepository : IAirportRepository
             [Nazione] = @Nazione,
             [NumPiste] = @NumPiste
             WHERE [Citta] = @Citta;";
-        var p = new Dictionary<string, object >()
+        var p = new Dictionary<string, object>()
         {
             { "@Citta", airport.City },
             { "@Nazione", airport.Country},
             { "@NumPiste", airport.AirstripsNumber?? 0}
         };
         var rowsAffected = Execute(command, p);
-        return rowsAffected > 0 
-            ? GetById(airport.City) 
+        return rowsAffected > 0
+            ? GetById(airport.City)
             : null;
     }
 
     public bool Delete(string airportId)
     {
         var command = @"DELETE FROM [Aeroporto] WHERE [Citta] = @Citta;";
-        var p = new Dictionary<string, object >()
+        var p = new Dictionary<string, object>()
         {
             { "@Citta", airportId }
         };
@@ -108,7 +108,7 @@ public class AirportsRepository : IAirportRepository
         {
             using var cn = new SqlConnection(ConnectionString);
             using var cmd = new SqlCommand(command, cn);
-            cn.Open();  
+            cn.Open();
             var p = parameters.Select(x => new SqlParameter(x.Key, x.Value)).ToArray();
             cmd.Parameters.AddRange(p);
             return cmd.ExecuteNonQuery();

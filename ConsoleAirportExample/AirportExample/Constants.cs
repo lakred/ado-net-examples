@@ -3,7 +3,7 @@
 public static  class Constants
 {
     public const string ConnectionString =
-        @"Server=127.0.0.1; Database=Aeroporti; Integrated Security=true; TrustServerCertificate=True";
+        @"Server=localhost; Database=Aeroporti; Integrated Security=true; TrustServerCertificate=True";
 
 
     public static class CrudOperations
